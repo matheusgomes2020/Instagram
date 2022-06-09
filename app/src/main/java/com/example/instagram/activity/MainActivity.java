@@ -33,9 +33,13 @@ public class MainActivity extends AppCompatActivity {
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+
+
         Toolbar toolbar = findViewById(  R.id.toolbarPrincipal );
         toolbar.setTitle( "Instagram" );
         setSupportActionBar( toolbar );
+
+
 
         aautenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 

@@ -7,16 +7,20 @@
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/drawable/background_botao_perfil.xml" value="0.2645" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/drawable/background_caixa_texto.xml" value="0.117" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_cadastro.xml" value="0.33" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_editar_perfil.xml" value="0.33" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_login.xml" value="0.33" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_blank.xml" value="0.1" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_blank2.xml" value="0.2989583333333333" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_dashboard.xml" value="0.2564102564102564" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_home.xml" value="0.26458333333333334" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_notifications.xml" value="0.26458333333333334" />
-        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_perfil.xml" value="0.34057971014492755" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_perfil.xml" value="0.5" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_store.xml" value="0.25052083333333336" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/toobar.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/menu/bottom_nav_menu.xml" value="0.346875" />
-        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/menu/menu_main.xml" value="0.27291666666666664" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/menu/menu_editar_cadastro.xml" value="0.25" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/menu/menu_main.xml" value="0.1" />
       </map>
     </option>
   </component>

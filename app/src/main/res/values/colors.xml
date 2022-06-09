@@ -11,4 +11,5 @@
     <color name="cor_texto" />
     <color name="cor_texto2">#A59F9F</color>
     <color name="cor_texto_ajuda">#0B218D</color>
+    <color name="cor_alterar_foto_perfil">#2691E6</color>
 </resources>

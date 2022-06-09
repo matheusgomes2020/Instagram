@@ -27,13 +27,14 @@
             android:layout_gravity="center"
             android:orientation="horizontal">
 
+
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imagePerfil"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                tools:layout_editor_absoluteX="33dp"
-                tools:layout_editor_absoluteY="53dp"
-                tools:src="@drawable/padrao" />
+                android:src="@drawable/padrao"
+                />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -113,7 +114,7 @@
         </LinearLayout>
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/textViewNome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="3dp"
@@ -133,7 +134,7 @@
         <Button
             android:id="@+id/buttonEditarPerfil"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="37dp"
             android:layout_marginTop="5dp"
             android:background="@drawable/background_botao_perfil"
             android:text="Editar perfil"
@@ -144,10 +145,13 @@
 
     <LinearLayout
         android:id="@+id/linearLayout3"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
@@ -155,18 +159,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginStart="10dp"
             android:gravity="center"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageView9"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_weight="0"
-                tools:layout_editor_absoluteX="33dp"
-                tools:layout_editor_absoluteY="53dp"
-                tools:src="@tools:sample/avatars" />
+                android:id="@+id/image9"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/padrao" />
 
             <TextView
                 android:id="@+id/textView15"
@@ -185,13 +185,10 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageView10"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_weight="0"
-                tools:layout_editor_absoluteX="33dp"
-                tools:layout_editor_absoluteY="53dp"
-                tools:src="@tools:sample/avatars" />
+                android:id="@+id/image111"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/avatar" />
 
             <TextView
                 android:id="@+id/textView16"
@@ -210,13 +207,10 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageView11"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_weight="0"
-                tools:layout_editor_absoluteX="33dp"
-                tools:layout_editor_absoluteY="53dp"
-                tools:src="@tools:sample/avatars" />
+                android:id="@+id/image11"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/avatar" />
 
             <TextView
                 android:id="@+id/textView17"
@@ -235,12 +229,10 @@
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageView5"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                tools:layout_editor_absoluteX="33dp"
-                tools:layout_editor_absoluteY="53dp"
-                tools:src="@tools:sample/avatars" />
+                android:id="@+id/image5"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/avatar" />
 
             <TextView
                 android:id="@+id/textView14"
@@ -250,23 +242,20 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:orientation="vertical">
 
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageView12"
-                android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_weight="0"
-                tools:layout_editor_absoluteX="33dp"
-                tools:layout_editor_absoluteY="53dp"
-                tools:src="@tools:sample/avatars" />
+                android:id="@+id/image18"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/avatar" />
 
             <TextView
                 android:id="@+id/textView18"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0"
                 android:text="TextView" />
