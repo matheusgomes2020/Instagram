@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.example.instagram.R;
 import com.example.instagram.helper.ConfiguracaoFirebase;
+import com.example.instagram.helper.UsuarioFirebase2;
 import com.example.instagram.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -83,15 +84,30 @@ public class CadastroActivity extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if ( task.isSuccessful() ){
 
-                    progressDialog.dismiss();
+                    try {
 
-                    Toast.makeText(CadastroActivity.this,
-                            "Sucesso ao cadastrar usuário!",
-                            Toast.LENGTH_SHORT).show();
-                    startActivity( new Intent(getApplicationContext(), MainActivity.class));
+                        progressDialog.dismiss();
 
-                    finish();
+                        //Salvar dados no firebase
 
+                        String idUsuario = task.getResult().getUser().getUid();
+                        usuario.setId( idUsuario );
+                        usuario.salvar();
+
+                        //Salvar os dados no profile do firebase
+                        UsuarioFirebase2.atualizarNomeUsuario( usuario.getNome() );
+
+
+                        Toast.makeText(CadastroActivity.this,
+                                "Sucesso ao cadastrar usuário!",
+                                Toast.LENGTH_SHORT).show();
+                        startActivity( new Intent(getApplicationContext(), MainActivity.class));
+
+                        finish();
+
+                    }catch ( Exception e ){
+                        e.printStackTrace();
+                    }
 
                 }else {
 
