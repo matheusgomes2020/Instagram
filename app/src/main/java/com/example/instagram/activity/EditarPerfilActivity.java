@@ -174,6 +174,10 @@ public class EditarPerfilActivity extends AppCompatActivity {
                 progressDialog.dismiss();
             }
 
+
+
+        } else {
+            progressDialog.dismiss();
         }
 
     }
