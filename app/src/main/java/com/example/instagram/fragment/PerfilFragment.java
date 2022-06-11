@@ -14,6 +14,11 @@ import android.widget.TextView;
 
 import com.example.instagram.R;
 import com.example.instagram.activity.EditarPerfilActivity;
+import com.example.instagram.helper.ConfiguracaoFirebase;
+import com.example.instagram.helper.UsuarioFirebase;
+import com.example.instagram.model.Usuario;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -23,6 +28,9 @@ public class PerfilFragment extends Fragment {
     private CircleImageView imagePerfil;
     private GridView gridViewperfil;
     private TextView textPublicacoes, textSeguidores, textSeguindo;
+    private Usuario usuarioLogado;
+    private FirebaseAuth firebaseAuth;
+    private DatabaseReference usuariosRef;
 
     public PerfilFragment() {
     }
@@ -34,12 +42,17 @@ public class PerfilFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_perfil, container, false);
 
+        firebaseAuth = ConfiguracaoFirebase.getFirebaseAutenticacao();
+
+
         gridViewperfil = view.findViewById( R.id.gridViewPerfil );
         imagePerfil = view.findViewById( R.id.imagePerfil );
         textPublicacoes = view.findViewById( R.id.textPublicacoes );
         textSeguidores = view.findViewById( R.id.textSeguidores );
         textSeguindo = view.findViewById( R.id.textSeguindo );
         buttonEditarPerfil = view.findViewById( R.id.buttonEditarPerfil );
+
+
 
         buttonEditarPerfil.setOnClickListener(new View.OnClickListener() {
             @Override
