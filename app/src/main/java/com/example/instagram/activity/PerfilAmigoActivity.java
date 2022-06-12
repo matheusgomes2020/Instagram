@@ -15,7 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.instagram.R;
 import com.example.instagram.helper.ConfiguracaoFirebase;
-import com.example.instagram.helper.UsuarioFirebase2;
+import com.example.instagram.helper.UsuarioFirebase;
 import com.example.instagram.model.Usuario;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -52,7 +52,7 @@ public class PerfilAmigoActivity extends AppCompatActivity {
         firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
         usuariosRef = ConfiguracaoFirebase.getFirebaseDatabase().child( "usuarios" );
         seguidoresRef = firebaseRef.child( "seguidores" );
-        idUsuarioLogado = UsuarioFirebase2.getIdentificadorUsuario();
+        idUsuarioLogado = UsuarioFirebase.getIdentificadorUsuario();
 
         //Inicializar componentes
         inicializarComponentes();
@@ -134,7 +134,7 @@ public class PerfilAmigoActivity extends AppCompatActivity {
         if ( segueusuario ){
 
             buttonSeguir.setText( "Seguindo" );
-            buttonSeguir.setBackgroundResource( R.color.white );
+            buttonSeguir.setClickable( false );
             buttonSeguir.setTextColor( R.color.black);
 
         }else {

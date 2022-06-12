@@ -21,7 +21,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.instagram.R;
 import com.example.instagram.helper.ConfiguracaoFirebase;
-import com.example.instagram.helper.UsuarioFirebase2;
+import com.example.instagram.helper.UsuarioFirebase;
 import com.example.instagram.model.Usuario;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -53,9 +53,9 @@ public class EditarPerfilActivity extends AppCompatActivity {
         setContentView(R.layout.activity_editar_perfil);
 
         //Configurações iniciais
-        usuarioLogado = UsuarioFirebase2.getDadosusuarioLogado();
+        usuarioLogado = UsuarioFirebase.getDadosusuarioLogado();
         storageRef = ConfiguracaoFirebase.getFirebaseStorage();
-        identificadorUsuario = UsuarioFirebase2.getIdentificadorUsuario();
+        identificadorUsuario = UsuarioFirebase.getIdentificadorUsuario();
 
         Toolbar toolbar = findViewById(  R.id.toolbarPrincipal );
         toolbar.setTitle( "Editar perfil" );
@@ -68,7 +68,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
         inicializarComponentes();
 
         //Recuperar dados do usuario
-        FirebaseUser usuarioPerfil = UsuarioFirebase2.getUsuarioAtual();
+        FirebaseUser usuarioPerfil = UsuarioFirebase.getUsuarioAtual();
         editNomePerfil.setText( usuarioPerfil.getDisplayName() );
         editNomeUsuarioPerfil.setText( usuarioPerfil.getEmail() );
 
@@ -187,7 +187,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
 
 
         //Atualizar foto no perfil
-        UsuarioFirebase2.atualizarFotoUsuario( url );
+        UsuarioFirebase.atualizarFotoUsuario( url );
 
         //Atualizar foto no Firebase
         usuarioLogado.setCaminhoFoto( url.toString() );
@@ -246,7 +246,7 @@ public class EditarPerfilActivity extends AppCompatActivity {
                 String nomeAtaualizado = editNomePerfil.getText().toString();
 
                 //atualizar nome do perfil
-                UsuarioFirebase2.atualizarNomeUsuario( nomeAtaualizado );
+                UsuarioFirebase.atualizarNomeUsuario( nomeAtaualizado );
 
                 //Atualizar nome no banco de dados
                 usuarioLogado.setNome( nomeAtaualizado );

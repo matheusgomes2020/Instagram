@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.example.instagram.R;
 import com.example.instagram.activity.EditarPerfilActivity;
 import com.example.instagram.helper.ConfiguracaoFirebase;
-import com.example.instagram.helper.UsuarioFirebase;
 import com.example.instagram.model.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
