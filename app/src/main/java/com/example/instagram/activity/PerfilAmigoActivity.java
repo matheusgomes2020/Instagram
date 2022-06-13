@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.annotation.SuppressLint;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -22,11 +23,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class PerfilAmigoActivity extends AppCompatActivity {
 
     private Usuario usuarioSelecionado;
+    private Usuario usuarioLogado;
 
     private Button buttonSeguir, buttomMensagem;
     private CircleImageView imagePerfil;
@@ -36,6 +40,7 @@ public class PerfilAmigoActivity extends AppCompatActivity {
     private DatabaseReference firebaseRef;
     private DatabaseReference usuariosRef;
     private DatabaseReference usuarioAmigoRef;
+    private DatabaseReference usuarioLogadoRef;
     private DatabaseReference seguidoresRef;
 
     private ValueEventListener valueEventListenerPerfilAmigo;
@@ -87,10 +92,30 @@ public class PerfilAmigoActivity extends AppCompatActivity {
 
         }
 
-        verificaSegueUsuarioAmigo();
-
 
     }
+
+      private void recuperarDadosUsuarioLogado(){
+
+        usuarioLogadoRef  = usuariosRef.child( idUsuarioLogado );
+        usuarioLogadoRef.addListenerForSingleValueEvent(
+                new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        usuarioLogado = snapshot.getValue( Usuario.class );
+
+
+
+                        verificaSegueUsuarioAmigo();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+      }
 
     private void verificaSegueUsuarioAmigo(){
 
@@ -140,15 +165,72 @@ public class PerfilAmigoActivity extends AppCompatActivity {
         }else {
 
             buttonSeguir.setText( "Seguir" );
+            buttonSeguir.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Salvar seguidor
+                    salvarSeguidor(  usuarioLogado,  usuarioSelecionado );
+
+                }
+            });
 
         }
+
+    }
+
+    @SuppressLint("ResourceAsColor")
+    private void salvarSeguidor(Usuario uLogado, Usuario uAmigo ){
+
+        /*
+        * seguidores
+        * id_jamilton
+        *   id_seguindo
+        *       dados seguindo
+         */
+
+        HashMap<String, Object> dadosAmigo = new HashMap<>();
+        dadosAmigo.put( "nome", uAmigo.getNome() );
+        dadosAmigo.put( "caminhoFoto", uAmigo.getCaminhoFoto() );
+
+        DatabaseReference seguidorRef = seguidoresRef
+                .child( uLogado.getId() )
+                .child( uAmigo.getId() );
+
+        seguidorRef.setValue( dadosAmigo );
+        buttonSeguir.setText( "Seguindo" );
+        buttonSeguir.setClickable( false );
+        buttonSeguir.setTextColor( R.color.black);
+
+        //Incrementar seguindo do usuario logado
+        int seguindo = uLogado.getSeguindo() + 1;
+        HashMap<String, Object> dadosSeguindo = new HashMap<>();
+        dadosSeguindo.put( "seguindo", seguindo );
+
+        DatabaseReference usuarioSeguindo = usuariosRef
+                .child( uLogado.getId() );
+        usuarioSeguindo.updateChildren( dadosSeguindo );
+
+
+        //Incrementar seguidores do usuario amigo
+        int seguidores = uAmigo.getSeguidores() + 1;
+        HashMap<String, Object> dadosSeguidores = new HashMap<>();
+        dadosSeguidores.put( "seguidores", seguidores );
+
+        DatabaseReference usuarioSeguidores = usuariosRef
+                .child( uAmigo.getId() );
+        usuarioSeguidores.updateChildren( dadosSeguidores );
 
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+
+        //recuperar dados do amigo selecionado
         recuperarDadosPerfilAmigo();
+
+        //recuperar dados do usuário logado
+        recuperarDadosUsuarioLogado();
     }
 
     @Override
