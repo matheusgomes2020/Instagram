@@ -2,10 +2,29 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+
     <item
-        android:id="@+id/menu_sair"
-        android:title="Sair"
-        app:showAsAction="never"
+        android:id="@+id/menu_adicionar"
+        android:title="Adicionar"
+        android:icon="@drawable/add"
+        app:showAsAction="always"
         />
+
+    <item
+        android:id="@+id/menu_coracao"
+        android:title="Coracao"
+        android:icon="@drawable/love"
+        app:showAsAction="always"
+        />
+
+    <item
+        android:id="@+id/menu_direct"
+        android:title="Direct"
+        android:icon="@drawable/instagramdireto"
+        app:showAsAction="always"
+        />
+
+
 
 </menu>

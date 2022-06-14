@@ -35,9 +35,12 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+        /*
         Toolbar toolbar = findViewById(  R.id.toolbarPrincipal );
         toolbar.setTitle( "Instagram" );
         setSupportActionBar( toolbar );
+
+         */
 
 
 
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(binding.navView, navController);
     }
 
+    /*
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
@@ -60,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onCreateOptionsMenu(menu);
     }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
@@ -83,5 +88,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
+     */
 
 }
