@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    compileSdk 32
+    compileSdk 31
 
     defaultConfig {
         applicationId "com.example.instagram"
@@ -56,6 +56,16 @@ dependencies {
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
     implementation 'com.firebaseui:firebase-ui-storage:8.0.1'
+
+    //Dependências AndroidphotoFilter
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation 'com.burhanrashid52:photoeditor:2.0.0'
+    implementation 'com.github.zomato:androidphotofilters:1.0.2'
+
+    
+
+
 
 
 
