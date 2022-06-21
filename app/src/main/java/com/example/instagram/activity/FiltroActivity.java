@@ -8,6 +8,7 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
@@ -59,6 +60,8 @@ public class FiltroActivity extends AppCompatActivity {
     private TextInputEditText textDescricaoFiltro;
     private String idUsuarioLogado;
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +81,13 @@ public class FiltroActivity extends AppCompatActivity {
         imageFotoEscolhida = findViewById(R.id.imageFotoEscolhida);
         recyclerFiltros = findViewById(R.id.recyclerFiltros);
         textDescricaoFiltro = findViewById(R.id.textDescricaoFiltro);
+
+        //init progressDialog
+        progressDialog = new ProgressDialog(this);
+        //set properties
+        progressDialog.setTitle("Por favor, espere!");             //set title
+        progressDialog.setMessage("Publicando...");   //set message
+        progressDialog.setCanceledOnTouchOutside(false);    //disable dismiss when touching outside of progress dialog
 
 
         //Recupera a imagem escolhida pelo usuário
@@ -130,6 +140,8 @@ public class FiltroActivity extends AppCompatActivity {
 
     private void publicarPostagem(){
 
+        progressDialog.show();
+
         final Postagem postagem = new Postagem();
         postagem.setIdUsuario( idUsuarioLogado );
         postagem.setDescricao( textDescricaoFiltro.getText().toString() );
@@ -153,6 +165,7 @@ public class FiltroActivity extends AppCompatActivity {
                 Toast.makeText(FiltroActivity.this,
                         "Erro ao salvar a imagem, tente novamente!",
                         Toast.LENGTH_SHORT).show();
+                progressDialog.dismiss();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
@@ -169,6 +182,7 @@ public class FiltroActivity extends AppCompatActivity {
                             Toast.makeText(FiltroActivity.this,
                                     "Sucesso ao salvar postagem!",
                                     Toast.LENGTH_SHORT).show();
+                            progressDialog.dismiss();
                             finish();
                         }
                     }
