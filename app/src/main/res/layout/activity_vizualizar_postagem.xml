@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.VizualizarPostagemActivity">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toobar"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagePerfilVizualizarPostagem"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/padrao"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textNomeVizualizarPostagem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:text="gabiguther"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/imagePerfilVizualizarPostagem"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+    <TextView
+        android:id="@+id/textLocalizacaoVizualizarPostagem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="Lagoa Rodrigo de freitas"
+        android:textSize="13sp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/imagePerfilVizualizarPostagem"
+        app:layout_constraintTop_toBottomOf="@+id/textNomeVizualizarPostagem" />
+
+    <ImageView
+        android:id="@+id/imagePontosVizualizarPostagem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:srcCompat="@drawable/dots" />
+
+    <ImageView
+        android:id="@+id/imageVizualizarPostagem"
+        android:layout_width="420dp"
+        android:layout_height="420dp"
+        android:layout_marginTop="8dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imagePerfilVizualizarPostagem"
+        app:srcCompat="@drawable/avatar" />
+
+    <ImageView
+        android:id="@+id/imageVizualizarPostagemLike"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageVizualizarPostagem"
+        app:srcCompat="@drawable/coracao" />
+
+    <ImageView
+        android:id="@+id/imageVizualizarPostagemChat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toEndOf="@+id/imageVizualizarPostagemLike"
+        app:layout_constraintTop_toBottomOf="@+id/imageVizualizarPostagem"
+        app:srcCompat="@drawable/chat" />
+
+    <ImageView
+        android:id="@+id/imageVizualizarPostagemEnviarDm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="8dp"
+        android:rotation="20"
+        app:layout_constraintStart_toEndOf="@+id/imageVizualizarPostagemChat"
+        app:layout_constraintTop_toBottomOf="@+id/imageVizualizarPostagem"
+        app:srcCompat="@drawable/s" />
+
+    <ImageView
+        android:id="@+id/imageSalvarPVizualizarPostagem"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageVizualizarPostagem"
+        app:srcCompat="@drawable/save" />
+
+    <TextView
+        android:id="@+id/textCurtidasVizualizarPublicacao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="52.825 curtidas"
+        android:textColor="#554F4F"
+        android:textSize="13sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageVizualizarPostagemLike" />
+
+    <TextView
+        android:id="@+id/textNomeAbaixoVizualizarPublicacao"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:text="gabiguther Texto da publicação bala bla bla Texto da publicação bala bla bla Texto da publicação bala bla bla"
+        android:textColor="#4A4646"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textCurtidasVizualizarPublicacao" />
+
+    <TextView
+        android:id="@+id/textNomeAbaixoVizualizarPublicacao2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="16dp"
+        android:text="Ver todos os comentários"
+        android:textColor="#4A4646"
+        android:textSize="12sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textNomeAbaixoVizualizarPublicacao" />
+
+    <TextView
+        android:id="@+id/textHa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="Há 2 dias"
+        android:textSize="10sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textNomeAbaixoVizualizarPublicacao2" />
+
+    <TextView
+        android:id="@+id/textVerTraducao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="4dp"
+        android:text="Ver tradução"
+        android:textSize="10sp"
+        app:layout_constraintStart_toEndOf="@+id/textHa"
+        app:layout_constraintTop_toBottomOf="@+id/textNomeAbaixoVizualizarPublicacao2" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

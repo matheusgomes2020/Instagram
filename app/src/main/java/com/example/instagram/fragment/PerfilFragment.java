@@ -20,14 +20,23 @@ import com.bumptech.glide.Glide;
 import com.example.instagram.R;
 import com.example.instagram.activity.EditarPerfilActivity;
 import com.example.instagram.activity.PerfilAmigoActivity;
+import com.example.instagram.adapter.AdapterGrid;
 import com.example.instagram.helper.ConfiguracaoFirebase;
 import com.example.instagram.helper.UsuarioFirebase;
+import com.example.instagram.model.Postagem;
 import com.example.instagram.model.Usuario;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
+import com.nostra13.universalimageloader.cache.disc.naming.HashCodeFileNameGenerator;
+import com.nostra13.universalimageloader.cache.memory.impl.LruMemoryCache;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -44,8 +53,11 @@ public class PerfilFragment extends Fragment {
 
     private FirebaseAuth firebaseAuth;
 
+    private ValueEventListener valueEventListenerPerfil;
+    private DatabaseReference postagensUsuarioRef;
+    private AdapterGrid adapterGrid;
 
-    //private Usuario usuarioLogado;
+    private Usuario usuarioLogado;
     private Usuario usuarioL;
     private String idUsuarioLogado;
 
@@ -64,7 +76,96 @@ public class PerfilFragment extends Fragment {
         firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
         usuariosRef = ConfiguracaoFirebase.getFirebaseDatabase().child( "usuarios" );
         idUsuarioLogado = UsuarioFirebase.getIdentificadorUsuario();
+        usuarioLogado = UsuarioFirebase.getDadosusuarioLogado();
 
+        //Configurar referencia postagens usuario
+        postagensUsuarioRef = ConfiguracaoFirebase.getFirebaseDatabase()
+                .child("postagens")
+                .child( usuarioLogado.getId() );
+
+        //Configurações dos componentes
+        inicializarComponentes(view);
+
+        //Recuperar foto do usuário
+        String caminhoFoto = usuarioLogado.getCaminhoFoto();
+        if( caminhoFoto != null ){
+            Uri url = Uri.parse( caminhoFoto );
+            Glide.with(getActivity())
+                    .load( url )
+                    .into( imagePerfil );
+        }
+
+        //Abre edição de perfil
+        buttonEditarPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent( getActivity(), EditarPerfilActivity.class);
+                startActivity( i );
+            }
+        });
+
+        //Inicializar image loader
+        inicializarImageLoader();
+
+        //Carrega as fotos das postagens de um usuário
+        carregarFotosPostagem();
+
+        return view;
+    }
+
+    public void carregarFotosPostagem(){
+
+        //Recupera as fotos postadas pelo usuario
+        postagensUsuarioRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                //Configurar o tamanho do grid
+                int tamanhoGrid = getResources().getDisplayMetrics().widthPixels;
+                int tamanhoImagem = tamanhoGrid / 3;
+                gridViewperfil.setColumnWidth( tamanhoImagem );
+
+                List<String> urlFotos = new ArrayList<>();
+                for( DataSnapshot ds: dataSnapshot.getChildren() ){
+                    Postagem postagem = ds.getValue( Postagem.class );
+                    urlFotos.add( postagem.getCaminhoFoto() );
+                    //Log.i("postagem", "url:" + postagem.getCaminhoFoto() );
+                }
+
+
+                //Configurar adapter
+                adapterGrid = new AdapterGrid( getActivity() , R.layout.grid_postagem, urlFotos );
+                gridViewperfil.setAdapter( adapterGrid );
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
+    /**
+     * Instancia a UniversalImageLoader
+     */
+    public void inicializarImageLoader() {
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration
+                .Builder( getActivity() )
+                .memoryCache(new LruMemoryCache(2 * 1024 * 1024))
+                .memoryCacheSize(2 * 1024 * 1024)
+                .diskCacheSize(50 * 1024 * 1024)
+                .diskCacheFileCount(100)
+                .diskCacheFileNameGenerator(new HashCodeFileNameGenerator())
+                .build();
+        ImageLoader.getInstance().init( config );
+
+    }
+
+    private void inicializarComponentes(View view) {
 
         gridViewperfil = view.findViewById( R.id.gridViewPerfil );
         imagePerfil = view.findViewById( R.id.imagePerfil );
@@ -76,67 +177,51 @@ public class PerfilFragment extends Fragment {
         textSeguindo = view.findViewById( R.id.textSeguindo );
         buttonEditarPerfil = view.findViewById( R.id.buttonEditarPerfil );
 
-
-        buttonEditarPerfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent i = new Intent( getActivity(), EditarPerfilActivity.class);
-                startActivity( i );
-            }
-        });
-
-
-        return view;
     }
 
-    public void recuperarDadosUsuarioLogado(  ){
+    private void recuperarDadosUsuarioLogado(){
 
-        usuarioLogadoRef  = usuariosRef.child( idUsuarioLogado );
-        usuarioLogadoRef.addListenerForSingleValueEvent(
+        usuarioLogadoRef = usuariosRef.child( usuarioLogado.getId() );
+        valueEventListenerPerfil = usuarioLogadoRef.addValueEventListener(
                 new ValueEventListener() {
                     @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        usuarioL = snapshot.getValue( Usuario.class );
+                    public void onDataChange(DataSnapshot dataSnapshot) {
 
-                        try {
-                            String caminhoFoto = usuarioL.getCaminhoFoto();
-                            if ( caminhoFoto != null ){
+                        Usuario usuario = dataSnapshot.getValue( Usuario.class );
 
-                                Uri url = Uri.parse( caminhoFoto );
-                                Glide.with( PerfilFragment.this )
-                                        .load( url )
-                                        .into( imagePerfil );
+                        String postagens = String.valueOf( usuario.getPostagens() );
+                        String nome = usuario.getNome();
+                        String seguindo = String.valueOf( usuario.getSeguindo() );
+                        String seguidores = String.valueOf( usuario.getSeguidores() );
+                        String bio = usuario.getBio();
 
-                            }
-                        }catch ( Exception e ){
-                            e.printStackTrace();
-                        }
+                        //Configura valores recuperados
+                        textPublicacoes.setText( postagens );
+                        textSeguidores.setText( seguidores );
+                        textSeguindo.setText( seguindo );
+                        textBio.setText( bio );
+                        textNome.setText( nome );
 
-
-                        //usuarioL.setNome( "TESTE" );
-
-                        textNome.setText( usuarioL.getNome() );
-                        //textNome.setText( "usuarioLogado.getNome()" );
-                        textBio.setText( usuarioL.getBio() );
-                        //Toast.makeText(getActivity(), "Método", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                    public void onCancelled(DatabaseError databaseError) {
 
                     }
-                });
-
-
-
+                }
+        );
 
     }
-
-
 
     @Override
     public void onStart() {
         super.onStart();
         recuperarDadosUsuarioLogado();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        usuarioLogadoRef.removeEventListener( valueEventListenerPerfil );
     }
 }
