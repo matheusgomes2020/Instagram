@@ -6,5 +6,5 @@
     tools:context=".fragment.PostagemFragment"
     >
 
-    <include layout="@layout/toolbar_postagem"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

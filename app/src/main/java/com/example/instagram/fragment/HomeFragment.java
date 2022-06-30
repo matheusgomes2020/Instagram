@@ -7,7 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -15,18 +18,34 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.example.instagram.R;
 import com.example.instagram.activity.LoginActivity;
 import com.example.instagram.activity.PostagemActivity;
+import com.example.instagram.adapter.AdapterFeed;
 import com.example.instagram.helper.ConfiguracaoFirebase;
+import com.example.instagram.helper.UsuarioFirebase;
+import com.example.instagram.model.Feed;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
     private FirebaseAuth autenticacao;
+    private RecyclerView recyclerFeed;
+    private AdapterFeed adapterFeed;
+    private List<Feed> listaFeed = new ArrayList<>();
+    private ValueEventListener valueEventListenerFeed;
+    private DatabaseReference feedRef;
+    private String idUsuarioLogado;
 
     public HomeFragment() {
     }
@@ -42,6 +61,12 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
 
+        //Configurações iniciais
+        idUsuarioLogado = UsuarioFirebase.getIdentificadorUsuario();
+        feedRef = ConfiguracaoFirebase.getFirebaseDatabase()
+                .child( "feed" )
+                .child( idUsuarioLogado );
+
         autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
 
         setHasOptionsMenu(true);
@@ -50,9 +75,56 @@ public class HomeFragment extends Fragment {
         toolbar.setTitle( "Instagram" );
         ((AppCompatActivity)getActivity()).setSupportActionBar( toolbar );
 
+        recyclerFeed = view.findViewById( R.id.recyclerFeed );
+
 
 
         return view;
+
+    }
+
+    private void recuperarFeed(){
+
+        listaFeed.clear();
+
+        valueEventListenerFeed = feedRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for ( DataSnapshot ds: dataSnapshot.getChildren() ){
+                    listaFeed.add( ds.getValue(Feed.class) );
+
+                }
+
+               // adapterFeed.notifyDataSetChanged();
+
+                //Configura recyclerview
+                adapterFeed = new AdapterFeed( listaFeed, getActivity() );
+                recyclerFeed.setHasFixedSize( true );
+                recyclerFeed.setLayoutManager( new LinearLayoutManager(getActivity()));
+                recyclerFeed.setAdapter( adapterFeed );
+                Collections.reverse( listaFeed );
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        recuperarFeed();
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        feedRef.removeEventListener( valueEventListenerFeed );
     }
 
     @Override

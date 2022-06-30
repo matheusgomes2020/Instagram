@@ -30,7 +30,7 @@ public class PostagemFragment extends Fragment {
 
         setHasOptionsMenu(true);
 
-        Toolbar toolbar = view.findViewById(  R.id.toolbarPrincipalPostagem );
+        Toolbar toolbar = view.findViewById(  R.id.toolbarPrincipal );
         toolbar.setTitle( "" );
         ((AppCompatActivity)getActivity()).setSupportActionBar( toolbar );
 

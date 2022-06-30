@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -13,7 +14,7 @@
 
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imagePerfilVizualizarPostagem"
+        android:id="@+id/imagePerfilPostagem"
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="16dp"
@@ -23,29 +24,29 @@
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
-        android:id="@+id/textNomeVizualizarPostagem"
+        android:id="@+id/textNomePostagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:text="gabiguther"
         android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/imagePerfilVizualizarPostagem"
+        app:layout_constraintStart_toEndOf="@+id/imagePerfilPostagem"
         app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     <TextView
-        android:id="@+id/textLocalizacaoVizualizarPostagem"
+        android:id="@+id/textLocalizacaoPostagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="Lagoa Rodrigo de freitas"
         android:textSize="13sp"
         android:visibility="invisible"
-        app:layout_constraintStart_toEndOf="@+id/imagePerfilVizualizarPostagem"
-        app:layout_constraintTop_toBottomOf="@+id/textNomeVizualizarPostagem" />
+        app:layout_constraintStart_toEndOf="@+id/imagePerfilPostagem"
+        app:layout_constraintTop_toBottomOf="@+id/textNomePostagem" />
 
     <ImageView
-        android:id="@+id/imagePontosVizualizarPostagem"
+        android:id="@+id/imagePontosPostagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -55,59 +56,59 @@
         app:srcCompat="@drawable/dots" />
 
     <ImageView
-        android:id="@+id/imageVizualizarPostagem"
+        android:id="@+id/imagePostagem"
         android:layout_width="420dp"
         android:layout_height="420dp"
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imagePerfilVizualizarPostagem"
+        app:layout_constraintTop_toBottomOf="@+id/imagePerfilPostagem"
         app:srcCompat="@drawable/avatar" />
 
     <ImageView
-        android:id="@+id/imageVizualizarPostagemLike"
+        android:id="@+id/imageLikePostagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageVizualizarPostagem"
+        app:layout_constraintTop_toBottomOf="@+id/imagePostagem"
         app:srcCompat="@drawable/coracao" />
 
     <ImageView
-        android:id="@+id/imageVizualizarPostagemChat"
+        android:id="@+id/imageChatPostagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintStart_toEndOf="@+id/imageVizualizarPostagemLike"
-        app:layout_constraintTop_toBottomOf="@+id/imageVizualizarPostagem"
+        app:layout_constraintStart_toEndOf="@+id/imageLikePostagem"
+        app:layout_constraintTop_toBottomOf="@+id/imagePostagem"
         app:srcCompat="@drawable/chat" />
 
     <ImageView
-        android:id="@+id/imageVizualizarPostagemEnviarDm"
+        android:id="@+id/imageEnviarDmPostagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:rotation="20"
-        app:layout_constraintStart_toEndOf="@+id/imageVizualizarPostagemChat"
-        app:layout_constraintTop_toBottomOf="@+id/imageVizualizarPostagem"
+        app:layout_constraintStart_toEndOf="@+id/imageChatPostagem"
+        app:layout_constraintTop_toBottomOf="@+id/imagePostagem"
         app:srcCompat="@drawable/s" />
 
     <ImageView
-        android:id="@+id/imageSalvarPVizualizarPostagem"
+        android:id="@+id/imageSalvarPostagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageVizualizarPostagem"
+        app:layout_constraintTop_toBottomOf="@+id/imagePostagem"
         app:srcCompat="@drawable/save" />
 
     <TextView
-        android:id="@+id/textCurtidasVizualizarPublicacao"
+        android:id="@+id/textCurtidasPostagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -117,10 +118,10 @@
         android:textSize="13sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageVizualizarPostagemLike" />
+        app:layout_constraintTop_toBottomOf="@+id/imageLikePostagem" />
 
     <TextView
-        android:id="@+id/textNomeAbaixoVizualizarPublicacao"
+        android:id="@+id/textNomeAbaixoPostagem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -131,10 +132,10 @@
         android:textSize="12sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textCurtidasVizualizarPublicacao" />
+        app:layout_constraintTop_toBottomOf="@+id/textCurtidasPostagem" />
 
     <TextView
-        android:id="@+id/textNomeAbaixoVizualizarPublicacao2"
+        android:id="@+id/textVerComentariosPostagem"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -146,10 +147,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNomeAbaixoVizualizarPublicacao" />
+        app:layout_constraintTop_toBottomOf="@+id/textNomeAbaixoPostagem" />
 
     <TextView
-        android:id="@+id/textHa"
+        android:id="@+id/textHaPostagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -157,18 +158,18 @@
         android:text="Há 2 dias"
         android:textSize="10sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textNomeAbaixoVizualizarPublicacao2" />
+        app:layout_constraintTop_toBottomOf="@+id/textVerComentariosPostagem" />
 
     <TextView
-        android:id="@+id/textVerTraducao"
+        android:id="@+id/textVerTraducaoPostagem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginTop="4dp"
         android:text="Ver tradução"
         android:textSize="10sp"
-        app:layout_constraintStart_toEndOf="@+id/textHa"
-        app:layout_constraintTop_toBottomOf="@+id/textNomeAbaixoVizualizarPublicacao2" />
+        app:layout_constraintStart_toEndOf="@+id/textHaPostagem"
+        app:layout_constraintTop_toBottomOf="@+id/textVerComentariosPostagem" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

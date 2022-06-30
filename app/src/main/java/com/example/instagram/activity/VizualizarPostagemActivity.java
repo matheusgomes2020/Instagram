@@ -46,17 +46,17 @@ public class VizualizarPostagemActivity extends AppCompatActivity {
             Uri uri = Uri.parse( usuario.getCaminhoFoto() );
             Glide.with( VizualizarPostagemActivity.this )
                     .load( uri )
-                    .into( binding.imagePerfilVizualizarPostagem );
+                    .into( binding.imagePerfilPostagem );
 
-            binding.textNomeVizualizarPostagem.setText( usuario.getNome() );
+            binding.textNomePostagem.setText( usuario.getNome() );
 
             //exibe dados da postagem
             Uri uriPostagem = Uri.parse( postagem.getCaminhoFoto() );
             Glide.with( VizualizarPostagemActivity.this )
                     .load( uriPostagem )
-                    .into( binding.imageVizualizarPostagem );
+                    .into( binding.imagePostagem );
 
-            binding.textNomeAbaixoVizualizarPublicacao.setText( postagem.getDescricao() );
+            binding.textNomeAbaixoPostagem.setText( postagem.getDescricao() );
 
         }
 
