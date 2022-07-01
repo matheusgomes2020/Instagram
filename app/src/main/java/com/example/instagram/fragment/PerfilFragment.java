@@ -13,22 +13,27 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.instagram.R;
 import com.example.instagram.activity.EditarPerfilActivity;
+import com.example.instagram.activity.LoginActivity;
 import com.example.instagram.activity.PerfilAmigoActivity;
+import com.example.instagram.activity.PostagemActivity;
 import com.example.instagram.adapter.AdapterGrid;
 import com.example.instagram.helper.ConfiguracaoFirebase;
 import com.example.instagram.helper.UsuarioFirebase;
 import com.example.instagram.model.Postagem;
 import com.example.instagram.model.Usuario;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -55,7 +60,7 @@ public class PerfilFragment extends Fragment {
     private DatabaseReference usuariosRef;
     private DatabaseReference usuarioLogadoRef;
 
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth autenticacao;
 
     private ValueEventListener valueEventListenerPerfil;
     private DatabaseReference postagensUsuarioRef;
@@ -96,15 +101,6 @@ public class PerfilFragment extends Fragment {
 
         //Configurações dos componentes
         inicializarComponentes(view);
-
-        //Recuperar foto do usuário
-        String caminhoFoto = usuarioLogado.getCaminhoFoto();
-        if( caminhoFoto != null ){
-            Uri url = Uri.parse( caminhoFoto );
-            Glide.with(getActivity())
-                    .load( url )
-                    .into( imagePerfil );
-        }
 
         //Abre edição de perfil
         buttonEditarPerfil.setOnClickListener(new View.OnClickListener() {
@@ -190,6 +186,21 @@ public class PerfilFragment extends Fragment {
 
     }
 
+    private void recuperarFotoUsuario(){
+
+        usuarioLogado = UsuarioFirebase.getDadosusuarioLogado();
+
+        //Recuperar foto do usuário
+        String caminhoFoto = usuarioLogado.getCaminhoFoto();
+        if( caminhoFoto != null ){
+            Uri url = Uri.parse( caminhoFoto );
+            Glide.with(getActivity())
+                    .load( url )
+                    .into( imagePerfil );
+        }
+
+    }
+
     private void recuperarDadosUsuarioLogado(){
 
         usuarioLogadoRef = usuariosRef.child( usuarioLogado.getId() );
@@ -236,6 +247,10 @@ public class PerfilFragment extends Fragment {
     public void onStart() {
         super.onStart();
         recuperarDadosUsuarioLogado();
+        recuperarFotoUsuario();
+
+
+
     }
 
     @Override
@@ -243,4 +258,59 @@ public class PerfilFragment extends Fragment {
         super.onStop();
         usuarioLogadoRef.removeEventListener( valueEventListenerPerfil );
     }
+
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch ( item.getItemId() ){
+            case R.id.menu_coracaoP:
+                deslogarUsuario();
+                startActivity( new Intent( getActivity(), LoginActivity.class ) );
+                break;
+
+            case R.id.menu_adicionarP:
+
+                showBottomSheetDialog();
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void deslogarUsuario(){
+
+        try {
+            autenticacao.signOut();
+        }catch ( Exception e ){
+            e.printStackTrace();
+        }
+
+    }
+
+    private void showBottomSheetDialog() {
+
+        final BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getActivity());
+        bottomSheetDialog.setContentView(R.layout.sheet_principal);
+
+        LinearLayout publicacao = bottomSheetDialog.findViewById(R.id.publicacao);
+        LinearLayout story = bottomSheetDialog.findViewById(R.id.story);
+        LinearLayout reels = bottomSheetDialog.findViewById(R.id.reels);
+        LinearLayout live = bottomSheetDialog.findViewById(R.id.live);
+
+        bottomSheetDialog.show();
+
+        publicacao.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity( new Intent( getActivity(), PostagemActivity.class ) );
+
+                bottomSheetDialog.dismiss();
+
+            }
+        });
+
+    }
+
 }
+

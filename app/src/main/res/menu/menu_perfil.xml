@@ -3,14 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_adicionar"
+        android:id="@+id/menu_adicionarP"
         android:title="Adicionar"
         android:icon="@drawable/add"
         app:showAsAction="always"
         />
 
     <item
-        android:id="@+id/menu_coracao"
+        android:id="@+id/menu_coracaoP"
         android:title="Coracao"
         android:icon="@drawable/ic_baseline_menu_24"
         app:showAsAction="always"

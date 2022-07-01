@@ -7,49 +7,83 @@
     android:backgroundTint="#F1EBEB"
     tools:context=".activity.ComentariosActivity">
 
-    <include layout="@layout/toobar" />
+    <include
+        android:id="@+id/include5"
+        layout="@layout/toobar" />
 
     <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="668dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:orientation="vertical"
         android:padding="5dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="62dp">
+        app:layout_constraintBottom_toTopOf="@+id/imagePerfilLogado"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/include5">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerComentarios"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="10dp">
+    </LinearLayout><![CDATA[
 
-            <EditText
-                android:id="@+id/editTextTextPersonName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="Name" />
 
-            <Button
-                android:id="@+id/button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="0"
-                android:backgroundTint="#FDFCFC"
-                android:backgroundTintMode="add"
-                android:hapticFeedbackEnabled="false"
-                android:textAllCaps="false"
-                android:text="Post"
-                android:textColor="#777272" />
-        </LinearLayout>
+        android:id="@+id/linearLayout5"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-    </LinearLayout>
+
+    ]]>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imagePerfilLogado"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/avatar"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/editComentario"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginBottom="24dp"
+        android:background="@android:color/transparent"
+        android:ems="10"
+        android:hint="Adicione um comentário..."
+        android:inputType="textPersonName"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textPublicar"
+        app:layout_constraintStart_toEndOf="@+id/imagePerfilLogado" />
+
+    <TextView
+        android:id="@+id/textPublicar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="24dp"
+        android:onClick="salvarComentario"
+        android:text="Publicar"
+        android:textColor="#1961CD"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

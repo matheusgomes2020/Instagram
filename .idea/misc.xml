@@ -7,7 +7,7 @@
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/drawable/background_botao_perfil.xml" value="0.2645" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/drawable/background_caixa_texto.xml" value="0.117" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_cadastro.xml" value="0.33" />
-        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_comentarios.xml" value="0.24516129032258063" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_comentarios.xml" value="0.33" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_editar_perfil.xml" value="0.33" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_filtro.xml" value="0.33" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_login.xml" value="0.33" />
@@ -15,7 +15,8 @@
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_perfil_amigo.xml" value="0.22" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_postagem.xml" value="0.2740740740740741" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/activity_vizualizar_postagem.xml" value="0.25" />
-        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/adapter_feed.xml" value="0.33" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/adapter_comentarios.xml" value="0.33" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/adapter_feed.xml" value="0.25" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/adapter_filtros.xml" value="0.203125" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/adapter_pesquisa_usuario.xml" value="0.3458333333333333" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/fragment_blank.xml" value="0.1" />
@@ -33,6 +34,7 @@
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/toobar.xml" value="0.27291666666666664" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/layout/toolbar_postagem.xml" value="0.365625" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/menu/bottom_nav_menu.xml" value="0.346875" />
+        <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/menu/menu_comentarios.xml" value="0.3558974358974359" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/menu/menu_editar_cadastro.xml" value="0.25" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/menu/menu_filtro.xml" value="0.1" />
         <entry key="..\:/Users/Matheus/AndroidStudioProjects/Instagram/app/src/main/res/menu/menu_main.xml" value="0.25" />

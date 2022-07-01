@@ -140,10 +140,6 @@ public class HomeFragment extends Fragment {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch ( item.getItemId() ){
-            case R.id.menu_direct:
-                deslogarUsuario();
-                startActivity( new Intent( getActivity(), LoginActivity.class ) );
-                break;
 
             case R.id.menu_adicionar:
 
@@ -155,11 +151,7 @@ public class HomeFragment extends Fragment {
 
     private void deslogarUsuario(){
 
-        try {
-            autenticacao.signOut();
-        }catch ( Exception e ){
-            e.printStackTrace();
-        }
+
 
     }
 

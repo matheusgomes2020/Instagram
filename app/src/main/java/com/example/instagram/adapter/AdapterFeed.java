@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.example.instagram.R;
 import com.example.instagram.activity.ComentariosActivity;
 import com.example.instagram.helper.ConfiguracaoFirebase;
 import com.example.instagram.helper.UsuarioFirebase;
+import com.example.instagram.model.Comentario;
 import com.example.instagram.model.Feed;
 import com.example.instagram.model.PostagemCurtida;
 import com.example.instagram.model.Usuario;
@@ -29,6 +31,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -45,6 +48,7 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
 
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
         View itemLista = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_feed, parent, false);
         return new AdapterFeed.MyViewHolder(itemLista);
     }
@@ -81,6 +85,8 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
 
 
 
+
+
         holder.descricao.setText( descricao );
         holder.nome.setText( feed.getNomeUsuario() );
 
@@ -92,6 +98,50 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
                 context.startActivity( i );
             }
         });
+
+        holder.coment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i  = new Intent( context, ComentariosActivity.class );
+                i.putExtra( "idPostagem", feed.getId() );
+                context.startActivity( i );
+            }
+        });
+
+
+        // recuperar quantidade de comentarios
+        DatabaseReference comentarioRef = ConfiguracaoFirebase.getFirebaseDatabase()
+                .child( "comentarios" )
+                .child( feed.getId() );
+
+        List<Comentario> listComentario = new ArrayList<>();
+        comentarioRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for ( DataSnapshot ds : snapshot.getChildren() ){
+                    listComentario.add( ds.getValue( Comentario.class ) );
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
+
+        int qtdComentario = listComentario.size();
+
+
+        if ( qtdComentario >0 ){
+            holder.verComentarios.setText( "Ver todos os " + qtdComentario + " comentários" );
+        }else {
+            holder.verComentarios.setText( "Ver todos os comentários" );
+        }
+
+
+
 
 
         //holder.localizacaoFeed.setText(  );
