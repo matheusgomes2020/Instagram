@@ -7,9 +7,9 @@ import java.util.HashMap;
 
 public class PostagemCurtida {
 
-    public int qtdCurtidas;
     public Feed feed;
     public Usuario usuario;
+    public int qtdCurtidas = 0;
 
     public PostagemCurtida() {
     }
@@ -20,33 +20,44 @@ public class PostagemCurtida {
 
         //Objeto usuario
         HashMap<String, Object> dadosUsuario = new HashMap<>();
-        dadosUsuario.put( "nomeUsuario", usuario.getNome() );
-        dadosUsuario.put( "caminhoFoto", usuario.getCaminhoFoto() );
+        dadosUsuario.put("nomeUsuario", usuario.getNome() );
+        dadosUsuario.put("caminhoFoto", usuario.getCaminhoFoto() );
 
         DatabaseReference pCurtidasRef = firebaseRef
-                .child( "postagens-curtidas" )
-                .child( feed.getId() ) //id_postagem
-                .child( usuario.getId() ); //id_usuario_logado
-
+                .child("postagens-curtidas")
+                .child( feed.getId() )//id_postagem
+                .child( usuario.getId() );//id_usuario_logado
         pCurtidasRef.setValue( dadosUsuario );
 
         //atualizar quantidade de curtidas
-        atualizarQtd( 1 );
-
+        atualizarQtd(1);
 
     }
 
-    public void atualizarQtd( int valor ){
+    public void atualizarQtd(int valor){
 
         DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
 
         DatabaseReference pCurtidasRef = firebaseRef
-                .child( "postagens-curtidas" )
-                .child( feed.getId() ) //id_postagem
-                .child( usuario.getId() ) //id_usuario_logado
-                .child( "qtdCurtidas" );
-
+                .child("postagens-curtidas")
+                .child( feed.getId() )//id_postagem
+                .child("qtdCurtidas");
         setQtdCurtidas( getQtdCurtidas() + valor );
+        pCurtidasRef.setValue( getQtdCurtidas() );
+    }
+
+    public void remover(){
+
+        DatabaseReference firebaseRef = ConfiguracaoFirebase.getFirebaseDatabase();
+
+        DatabaseReference pCurtidasRef = firebaseRef
+                .child("postagens-curtidas")
+                .child( feed.getId() )//id_postagem
+                .child( usuario.getId() );//id_usuario_logado
+        pCurtidasRef.removeValue();
+
+        //atualizar quantidade de curtidas
+        atualizarQtd(-1);
 
     }
 

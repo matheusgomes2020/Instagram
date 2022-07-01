@@ -6,9 +6,13 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -77,6 +81,13 @@ public class PerfilFragment extends Fragment {
         usuariosRef = ConfiguracaoFirebase.getFirebaseDatabase().child( "usuarios" );
         idUsuarioLogado = UsuarioFirebase.getIdentificadorUsuario();
         usuarioLogado = UsuarioFirebase.getDadosusuarioLogado();
+
+        setHasOptionsMenu(true);
+
+        Toolbar toolbar = view.findViewById(  R.id.toolbarPrincipal );
+        Toast.makeText(getActivity(), usuarioLogado.getNome(), Toast.LENGTH_SHORT).show();
+        toolbar.setTitle( usuarioLogado.getNome() );
+        ((AppCompatActivity)getActivity()).setSupportActionBar( toolbar );
 
         //Configurar referencia postagens usuario
         postagensUsuarioRef = ConfiguracaoFirebase.getFirebaseDatabase()
@@ -211,6 +222,14 @@ public class PerfilFragment extends Fragment {
                 }
         );
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+
+        inflater.inflate( R.menu.menu_perfil, menu );
+
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

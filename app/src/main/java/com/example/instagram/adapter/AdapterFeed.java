@@ -1,7 +1,12 @@
 package com.example.instagram.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Typeface;
 import android.net.Uri;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.instagram.R;
+import com.example.instagram.activity.ComentariosActivity;
 import com.example.instagram.helper.ConfiguracaoFirebase;
 import com.example.instagram.helper.UsuarioFirebase;
 import com.example.instagram.model.Feed;
@@ -56,8 +62,38 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
         Glide.with( context ).load( uriFotoUsuario ).into(holder.fotoPerfil);
         Glide.with( context ).load( uriFotoPostagem ).into(holder.fotoPostagem);
 
-        holder.descricao.setText( feed.getDescricao() );
+        String descricao = feed.getNomeUsuario() + " " + feed.getDescricao();
+
+        SpannableStringBuilder str = new SpannableStringBuilder( feed.getNomeUsuario() );
+        str.setSpan(  new StyleSpan(Typeface.BOLD),
+                0, str.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+
+        //SpannableStringBuilder str2 = new SpannableStringBuilder( feed.getDescricao() );
+
+
+       // String descricao = str.toString()+ " " + feed.getDescricao();
+
+
+
+        //holder.verTraducao.setText( descricao );
+
+
+
+        holder.descricao.setText( descricao );
         holder.nome.setText( feed.getNomeUsuario() );
+
+        holder.verComentarios.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i  = new Intent( context, ComentariosActivity.class );
+                i.putExtra( "idPostagem", feed.getId() );
+                context.startActivity( i );
+            }
+        });
+
+
         //holder.localizacaoFeed.setText(  );
         //holder.qtdCurtidas.setText(  );
 
@@ -79,28 +115,45 @@ public class AdapterFeed extends RecyclerView.Adapter<AdapterFeed.MyViewHolder> 
             public void onDataChange(@NonNull DataSnapshot snapshot) {
 
                 int qtdCurtidas = 0;
-                if ( snapshot.hasChild( "qtdCurtidas"  ) ){
-
+                if( snapshot.hasChild("qtdCurtidas") ){
                     PostagemCurtida postagemCurtida = snapshot.getValue( PostagemCurtida.class );
                     qtdCurtidas = postagemCurtida.getQtdCurtidas();
-
                 }
 
-                //Monta objeto postagem curtida
-                PostagemCurtida curtida = new PostagemCurtida();
+                //Verifica se já foi clicado
+                if ( snapshot.hasChild( usuarioLogado.getId() ) )
+                    holder.like.setImageResource( R.drawable.likepreenchido );
+                else {
+                    holder.like.setImageResource( R.drawable.coracao );
+                }
+
+                ///Monta objeto postagem curtida
+                final PostagemCurtida curtida = new PostagemCurtida();
                 curtida.setFeed( feed );
                 curtida.setUsuario( usuarioLogado );
                 curtida.setQtdCurtidas( qtdCurtidas );
-
-
 
                 //Adiciona eventos para curtir uma foto
                 holder.like.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        curtida.salvar();
+
+                        if ( snapshot.hasChild( usuarioLogado.getId() ) ) {
+                            curtida.remover();
+                            holder.like.setImageResource( R.drawable.coracao );
+                            holder.qtdCurtidas.setText(curtida.getQtdCurtidas() + " curtidas");
+                            notifyDataSetChanged();
+                        }else {
+                            curtida.salvar();
+                            holder.like.setImageResource( R.drawable.likepreenchido );
+                            holder.qtdCurtidas.setText( curtida.getQtdCurtidas() + " curtidas");
+                            notifyDataSetChanged();
+                        }
+
                     }
                 });
+
+                holder.qtdCurtidas.setText( curtida.getQtdCurtidas() + " curtidas" );
 
             }
 

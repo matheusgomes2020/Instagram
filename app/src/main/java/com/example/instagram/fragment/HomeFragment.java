@@ -105,6 +105,7 @@ public class HomeFragment extends Fragment {
                 Collections.reverse( listaFeed );
 
 
+                adapterFeed.notifyDataSetChanged();
             }
 
             @Override
